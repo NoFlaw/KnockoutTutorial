@@ -1,0 +1,69 @@
+﻿
+@model Data.Post
+
+@{
+    ViewBag.Title = "CreatePost";
+}
+
+<h2>CreatePost</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+        <div class="form-horizontal"> 
+            <div class="form-group">
+                @Html.LabelFor(model => model.CurrentPost)
+                <div>
+                    @Html.TextAreaFor(model => model.CurrentPost)
+                    @Html.ValidationMessageFor(model => model.CurrentPost)
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NickName)
+                <div>
+                    @Html.EditorFor(model => model.NickName,  new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NickName, "", new { @class = "text-danger"})
+                </div>
+            </div>
+            
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.DateCreated)
+                <div>
+                    @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        
+
+            <div class="form-group">
+                @Html.Label("CurrentBlog: ")
+                <div>
+                    @Html.TextArea("BlogDesc", new { disabled = "disabled" })
+                    @Html.HiddenFor(model => model.BlogId, new { @readonly = "readonly", @class = "control-label col-md-2" })
+                    @Html.ValidationMessageFor(model => model.BlogId)
+                </div>
+            </div>
+        
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

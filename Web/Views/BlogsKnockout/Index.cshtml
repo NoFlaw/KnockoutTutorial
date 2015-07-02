@@ -1,0 +1,60 @@
+﻿@model Web.Models.BlogViewModel
+
+@{
+    ViewBag.Title = "GetAllBlogs";
+}
+
+<h2>Get All Blogs</h2>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "BlogForm" }))
+{
+    <table>
+        <tbody data-bind="template: { name: 'blogTemplate', foreach: Blogs }"></tbody>
+    </table>
+
+    @*<button data-bind="enable: Blogs().length > 0" type="submit">Submit</button>*@
+}
+
+<script type="text/html" id="blogTemplate">
+    <tr>
+        <td>@Html.DisplayNameFor(model => model.Author) <input data-bind="value: Author, uniqueName: true" /></td>
+        <td>@Html.DisplayNameFor(model => model.Title) <input data-bind="value: Title, uniqueName: true" /></td>
+        <td>@Html.DisplayNameFor(model => model.Description) <input data-bind="value: Description, uniqueName: true" /></td>
+        <td>@Html.DisplayNameFor(model => model.DateCreated) <input data-bind="value: moment(DateCreated()).format('MM/DD/YYYY'), uniqueName: true" /></td>
+    </tr>
+</script>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            function blogModel(data) {
+                var self = this;
+
+                self.BlogId = ko.observable(data.BlogId);
+                self.Author = ko.observable(data.Author);
+                self.Title = ko.observable(data.Title);
+                self.Description = ko.observable(data.Description);
+                self.DateCreated = ko.observable(data.DateCreated);
+
+                //self.FullName = ko.computed(function() {
+                //    return self.FirstName() + ' ' + self.LastName();
+                //});
+            }
+
+            function blogViewModel() {
+                var self = this;
+                self.Blogs = ko.observableArray([]);
+                self.GetBlogs = $.getJSON("/BlogsKnockout/GetAllBlogs", function(data) {
+                    self.Blogs($.map(data, function(item) {
+                        return new blogModel(item);
+                    }));
+                });
+            };
+
+            ko.applyBindings(new blogViewModel());
+        });
+    </script>
+}
