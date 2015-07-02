@@ -14,6 +14,8 @@
     </table>
 
     @*<button data-bind="enable: Blogs().length > 0" type="submit">Submit</button>*@
+    
+    @*http://jsfiddle.net/rniemeyer/7RDc3/*@
 }
 
 <script type="text/html" id="blogTemplate">
@@ -39,9 +41,9 @@
                 self.Description = ko.observable(data.Description);
                 self.DateCreated = ko.observable(data.DateCreated);
 
-                //self.FullName = ko.computed(function() {
-                //    return self.FirstName() + ' ' + self.LastName();
-                //});
+                self.BlogFullName = ko.computed(function() {
+                    return self.Author() + ' ' + self.Title();
+                });
             }
 
             function blogViewModel() {
