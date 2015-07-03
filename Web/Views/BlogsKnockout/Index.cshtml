@@ -13,50 +13,64 @@
         <tbody data-bind="template: { name: 'blogTemplate', foreach: Blogs }"></tbody>
     </table>
 
-    @*<button data-bind="enable: Blogs().length > 0" type="submit">Submit</button>*@
+    @*<button data-bind="enable: Blogs().length > 0" type="submit">Submit</button>   *@
     
     @*http://jsfiddle.net/rniemeyer/7RDc3/*@
 }
 
-<script type="text/html" id="blogTemplate">
-    <tr>
-        <td>@Html.DisplayNameFor(model => model.Author) <input data-bind="value: Author, uniqueName: true" /></td>
-        <td>@Html.DisplayNameFor(model => model.Title) <input data-bind="value: Title, uniqueName: true" /></td>
-        <td>@Html.DisplayNameFor(model => model.Description) <input data-bind="value: Description, uniqueName: true" /></td>
-        <td>@Html.DisplayNameFor(model => model.DateCreated) <input data-bind="value: moment(DateCreated()).format('MM/DD/YYYY'), uniqueName: true" /></td>
-    </tr>
-</script>
+
+<input type="button" data-bind="click:removeBlogs" value="Remove All" />
 
 @section scripts{
+    
+    <script type="text/html" id="blogTemplate">
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Author) <input data-bind="value: Author, uniqueName: true" /></td>
+            <td>@Html.DisplayNameFor(model => model.Title) <input data-bind="value: Title, uniqueName: true" /></td>
+            <td>@Html.DisplayNameFor(model => model.Description) <input data-bind="value: Description, uniqueName: true" /></td>
+            <td>@Html.DisplayNameFor(model => model.DateCreated) <input data-bind="value: moment(DateCreated()).format('MM/DD/YYYY'), uniqueName: true" /></td>
+            <td>@Html.DisplayName("BlogFullName") <input data-bind="value: BlogFullName, uniqueName: true" /></td>
+        </tr>
+    </script>
+       
     <script type="text/javascript">
 
         $(document).ready(function() {
 
             function blogModel(data) {
                 var self = this;
-
                 self.BlogId = ko.observable(data.BlogId);
                 self.Author = ko.observable(data.Author);
                 self.Title = ko.observable(data.Title);
                 self.Description = ko.observable(data.Description);
                 self.DateCreated = ko.observable(data.DateCreated);
-
                 self.BlogFullName = ko.computed(function() {
                     return self.Author() + ' ' + self.Title();
                 });
-            }
-
+            };
+      
             function blogViewModel() {
                 var self = this;
                 self.Blogs = ko.observableArray([]);
                 self.GetBlogs = $.getJSON("/BlogsKnockout/GetAllBlogs", function(data) {
-                    self.Blogs($.map(data, function(item) {
+                    self.Blogs($.map(data, function(item) {          
                         return new blogModel(item);
                     }));
                 });
+
+                self.removeBlogs = function() {
+                    self.Blogs.removeAll();
+                };
             };
 
             ko.applyBindings(new blogViewModel());
+
+
+
+            
         });
     </script>
+    
+
+
 }
