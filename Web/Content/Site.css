@@ -22,3 +22,30 @@ select,
 textarea {
     max-width: 280px;
 }
+
+table.curveTable
+{
+    border: 9px solid black;
+    -webkit-border-radius: 13px;
+    -moz-border-radius: 13px;
+    -ms-border-radius: 13px;
+    -o-border-radius: 13px;
+    border-radius: 13px;
+	text-align: center;
+}
+
+table.curveTable th {
+	text-align: center;
+}
+
+hr.style-five {
+	border: 0;
+    height: 0; 
+	-webkit-box-shadow: 0 0 10px 1px black;
+	-ms-box-shadow: 0 0 10px 1px black;
+	box-shadow: 0 0 10px 1px black;
+}
+
+hr.style-five:after {  
+    content: "\00a0"; 
+}

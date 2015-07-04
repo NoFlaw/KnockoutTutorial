@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Data.Blog>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "All Blogs";
 }
 
 <h2>Blogs</h2>
@@ -10,31 +10,30 @@
     @Html.ActionLink("Create New", "Create")
 </h3>
 <br />
-<div class="main-content" id="wrapper">
-
+<div class="container-fluid" id="wrapper">
     <table class="curveTable" style="width: 100%">
-        <tr>
-            <th style="text-decoration: underline">
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th style="text-decoration: underline">
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th style="text-decoration: underline">
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th style="text-decoration: underline">
-                @Html.DisplayNameFor(model => model.BlogDescription)
-            </th>
-            <th style="text-decoration: underline">
-                Options
-            </th>
-        </tr>
-
         @foreach (var item in Model)
         {
+            <tr style="text-align: center">
+                <th style="text-decoration: underline">
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th style="text-decoration: underline">
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </th>
+                <th style="text-decoration: underline">
+                    @Html.DisplayNameFor(model => model.Author)
+                </th>
+                <th style="text-decoration: underline">
+                    @Html.DisplayNameFor(model => model.BlogDescription)
+                </th>
+                <th style="text-decoration: underline">
+                    Options
+                </th>
+            </tr>
+            
             <tr>
-                <td>
+                <td>  
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
 
@@ -56,30 +55,37 @@
                     @Html.ActionLink("Delete", "Delete", new { id = item.BlogId })<br />
                     @Html.ActionLink("Post", "CreatePost", new { blogId = item.BlogId })
                 </td>
-            </tr>
 
+            </tr>
+                      
             <tr>
-                <th colspan="5" style="text-shadow: red; color: gray; text-align: center">
+                <th colspan="5" style="-ms-text-shadow: red; text-shadow: red; color: gray; text-align: center">
                     @if (item.Posts.Any())
                     {
-
                         <p><< <i>@item.Title's Posts</i>  >></p>
                     }
                 </th>
             </tr>
+            
+            var postCounter = 1;
 
-                    var postCounter = 1;
-
-                    foreach (var post in item.Posts)
-                    {
-                        <tr>
-                            <td colspan="5" style="text-align: center">
-                                #@postCounter.)  <i>"@post.CurrentPost"</i> @@ @post.DateCreated - By: @post.NickName
-                                <hr class="style-five" />
-                            </td>
-                        </tr>
-                        postCounter = postCounter + 1;
-                    }
+            foreach (var post in item.Posts)
+            {
+                <tr>
+                    <td colspan="5" style="text-align: center; background-color: #F8F8FF">
+                        #@postCounter.)  <i>"@post.CurrentPost"</i> @@ @post.DateCreated - By: @post.NickName
+                        @*<hr/>*@
+                    </td>
+                </tr>
+                postCounter = postCounter + 1;
+            }
+            <tr>
+                <td><hr class="style-five" /></td>
+                <td><hr class="style-five" /></td>
+                <td><hr class="style-five" /></td>
+                <td><hr class="style-five" /></td>
+                <td><hr class="style-five" /></td>
+            </tr>
         }
     </table>
 </div>

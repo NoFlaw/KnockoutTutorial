@@ -24,7 +24,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = _db.Blogs.Find(id);
+            var blog = _db.Blogs.Find(id);
             if (blog == null)
             {
                 return HttpNotFound();
@@ -45,14 +45,11 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BlogId,Title,DateCreated,Author,BlogDescription")] Blog blog)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Blogs.Add(blog);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(blog);
+            if (!ModelState.IsValid) return View(blog);
+            blog.DateCreated = DateTime.Now;
+            _db.Blogs.Add(blog);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Blogs/Edit/5

@@ -18,9 +18,12 @@ namespace Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            //Parse, validate, manipulate, and display dates in JavaScript with: http://momentjs.com/
             bundles.Add(new ScriptBundle("~/bundles/moment").Include("~/Scripts/moment.js"));
             
-            bundles.Add(new ScriptBundle("~/bundles/knockout").Include("~/Scripts/knockout-{version}.js", "~/Scripts/knockout.mapping-latest.js"));
+            bundles.Add(new ScriptBundle("~/bundles/knockout").Include("~/Scripts/knockout-{version}.js", 
+                "~/Scripts/knockout.mapping-latest.js",
+                "~/Scripts/knockout-date-bindings.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",

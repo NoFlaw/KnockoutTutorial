@@ -1,76 +1,145 @@
 ﻿@model Web.Models.BlogViewModel
 
 @{
-    ViewBag.Title = "GetAllBlogs";
+    ViewBag.Title = "All Blogs KO";
 }
+
 
 <h2>Get All Blogs</h2>
 
-
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "BlogForm" }))
+@using (Html.BeginForm("AddOrUpdateBlogs", null, FormMethod.Post, new { BlogViewModel = @Model }))
 {
-    <table>
-        <tbody data-bind="template: { name: 'blogTemplate', foreach: Blogs }"></tbody>
-    </table>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <p><span data-bind='text: Blogs().length'>&nbsp;</span> blog(s)</p>
+    <br/>
+    <div class="container-fluid" id="blogsKnockout">
+        <input type="button" data-bind="click: removeAllBlogs" value="Remove All" />
 
-    @*<button data-bind="enable: Blogs().length > 0" type="submit">Submit</button>   *@
-    
-    @*http://jsfiddle.net/rniemeyer/7RDc3/*@
+        <br /><br />
+
+        <table>
+            <tbody data-bind="template: { name: 'blogTemplate', foreach: Blogs }"></tbody>
+        </table>
+
+        <br />
+
+        <input type="button" data-bind='click: addBlog' value="Add Blog" />
+        <input type='button' data-bind='enable: Blogs().length > 0, click:save' value="Submit" />
+    </div>
 }
 
 
-<input type="button" data-bind="click:removeBlogs" value="Remove All" />
-
 @section scripts{
-    
     <script type="text/html" id="blogTemplate">
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.Author) <input data-bind="value: Author, uniqueName: true" /></td>
-            <td>@Html.DisplayNameFor(model => model.Title) <input data-bind="value: Title, uniqueName: true" /></td>
-            <td>@Html.DisplayNameFor(model => model.Description) <input data-bind="value: Description, uniqueName: true" /></td>
-            <td>@Html.DisplayNameFor(model => model.DateCreated) <input data-bind="value: moment(DateCreated()).format('MM/DD/YYYY'), uniqueName: true" /></td>
-            <td>@Html.DisplayName("BlogFullName") <input data-bind="value: BlogFullName, uniqueName: true" /></td>
+        <tr style="text-align: center">
+            <td>@Html.LabelFor(model => model.Author) <input data-bind="value: Author, uniqueName: true" /></td>
+            <td>@Html.LabelFor(model => model.Title) <input data-bind="value: Title, uniqueName: true" /></td>
+            <td>@Html.LabelFor(model => model.Description) <input data-bind="value: Description, uniqueName: true" /></td>
+            <td>@Html.LabelFor(model => model.DateCreated) <input type="text" data-bind="date: DateCreated, dateFormat:'MM/DD/YYYY', uniqueName: true, enable: false, required: false" /></td>
+            <td>@Html.Label("BlogFullName") <input data-bind="value: BlogFullName, uniqueName: true" /></td>
+            <td><a href='' data-bind='click: $root.removeBlog'>Delete</a></td>
         </tr>
     </script>
-       
+
     <script type="text/javascript">
 
-        $(document).ready(function() {
+    $(document).ready(function () {
 
-            function blogModel(data) {
-                var self = this;
-                self.BlogId = ko.observable(data.BlogId);
-                self.Author = ko.observable(data.Author);
-                self.Title = ko.observable(data.Title);
-                self.Description = ko.observable(data.Description);
-                self.DateCreated = ko.observable(data.DateCreated);
-                self.BlogFullName = ko.computed(function() {
-                    return self.Author() + ' ' + self.Title();
+        function blogModel(data) {
+            var self = this;
+            self.BlogId = ko.observable(data.BlogId);
+            self.Author = ko.observable(data.Author);
+            self.Title = ko.observable(data.Title);
+            self.Description = ko.observable(data.Description);
+            self.DateCreated = ko.observable(moment(data.DateCreated).format("L"));
+            self.BlogFullName = ko.computed(function () {
+                return self.Author() + ' ' + self.Title();
+            });
+        };
+
+        function blogViewModel() {
+            var self = this;
+            self.Blogs = ko.observableArray([]);
+            self.GetBlogs = $.getJSON("/BlogsKnockout/GetAllBlogs", function (data) {
+                self.Blogs($.map(data, function (item) {
+                    return new blogModel(item);
+                }));
+            });
+
+
+            self.addBlog = function () {
+                self.Blogs.push({
+                    Author: "",
+                    Title: "",
+                    Description: "",
+                    DateCreated: new Date().toLocaleString(),
+                    BlogFullName: ""
                 });
             };
-      
-            function blogViewModel() {
-                var self = this;
-                self.Blogs = ko.observableArray([]);
-                self.GetBlogs = $.getJSON("/BlogsKnockout/GetAllBlogs", function(data) {
-                    self.Blogs($.map(data, function(item) {          
-                        return new blogModel(item);
-                    }));
-                });
 
-                self.removeBlogs = function() {
-                    self.Blogs.removeAll();
+            self.removeBlog = function (blog) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/BlogsKnockout/RemoveBlog/' + ko.toJSON(blog.BlogId),
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log("ERROR: " + errorThrown);
+                    },
+                    success: function (data) {
+                        self.Blogs.remove(blog);
+                        window.location.href = '@Url.Action("Index","BlogsKnockout")';
+                    }
+                });
+            };
+
+            self.removeAllBlogs = function () {
+                var blogsToBeRemoved = ko.toJSON(self.Blogs);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/BlogsKnockout/RemoveAllBlogs/',
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: blogsToBeRemoved,
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log("ERROR: " + errorThrown);
+                    },
+                    success: function (data) {
+                        self.Blogs.removeAll();
+                        window.location.href = '@Url.Action("Index","BlogsKnockout")';
+                        }
+                    });
                 };
+
+                self.save = function () {
+
+                    var blogsToBeUpdated = ko.toJSON(self.Blogs);
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/BlogsKnockout/AddOrUpdateBlogs',
+                        dataType: "json",
+                        contentType: "application/json",
+                        async: true,
+                        data: blogsToBeUpdated,
+                        error: function (jqXhr, textStatus, errorThrown) {
+                            console.log("ERROR: " + errorThrown);
+                        },
+                        success: function (data, textStatus, jqXhr) {
+                            alert(data.Message);
+                            window.location.href = '@Url.Action("Index","BlogsKnockout")';
+                        }
+                    });
+                };
+
+
             };
 
             ko.applyBindings(new blogViewModel());
 
-
-
-            
+            $('form[name="AddOrUpdateBlogs"]').validate({ submitHandler: blogViewModel.save });
         });
     </script>
     
-
-
 }
