@@ -37,7 +37,7 @@ namespace Web.Controllers
         public ActionResult AddOrUpdateBlogs(List<BlogViewModel> blogs)
         {
             if (!ModelState.IsValid)
-                return Json(new { Response = "Error", Message = "ErrorMessage: WHOA! That was unexpected?!?" }); 
+                return Json(new { success =false,  message = "WHOA! That was unexpected?!?" }); 
 
             foreach (var blogViewModel in blogs)
             {
@@ -65,25 +65,26 @@ namespace Web.Controllers
 
             _db.SaveChanges(); 
 
-            return Json(new { Response = "Success", Message = string.Format("Sucessfully processed {0} item(s).", blogs.Count)});
+            return Json(new { success = true, message = string.Format("Sucessfully processed {0} item(s).", blogs.Count)});
         }
 
         
         public ActionResult RemoveBlog(int id)
         {
             if (id <= 0 || string.IsNullOrEmpty(Convert.ToString(id)))
-                return Json(new { Response = "Error", Message = "ErrorMessage: WHOA! That was unexpected?!?" }); 
+                return Json(new { success = false, message = "WHOA! That was unexpected?!?" }); 
 
             var blog = _db.Blogs.Find(id);
             _db.Blogs.Remove(blog);
+            _db.Blogs.Remove(blog);
             _db.SaveChanges();
-            return Json(new { Response = "Success", Message = "Removed blog!"}, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, message = "Removed blog!"}, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult RemoveAllBlogs(List<BlogViewModel> blogs)
         {
             if (!blogs.Any())
-                return Json(new {Response = "Success", Message = "No blogs to DELETE..."}, JsonRequestBehavior.AllowGet);
+                return Json(new {success = true, message = "No blogs to DELETE..."}, JsonRequestBehavior.AllowGet);
             
             foreach (var blogFound in blogs.Select(blogViewModel => 
                 _db.Blogs.Find(blogViewModel.BlogId)).Where(blogFound => blogFound != null))
@@ -93,7 +94,7 @@ namespace Web.Controllers
 
             _db.SaveChanges();
 
-            return Json(new { Response = "Success", Message = "Removed all blogs!" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, message = "Removed all blogs!" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

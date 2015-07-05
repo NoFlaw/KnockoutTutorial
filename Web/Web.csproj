@@ -160,6 +160,7 @@
     <Content Include="Content\knockout_two-way-db.png" />
     <Content Include="Content\mainKnockoutImage.jpg" />
     <Content Include="Content\MVVM.png" />
+    <Content Include="Content\obervables.JPG" />
     <Content Include="Content\observer.gif" />
     <Content Include="Content\observer2.gif" />
     <Content Include="favicon.ico" />

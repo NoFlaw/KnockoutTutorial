@@ -1,36 +1,12 @@
-﻿
-ko.extenders.required = function (target, overrideMessage) {
-    //add some sub-observables to our observable
-    target.hasError = ko.observable();
-    target.validationMessage = ko.observable();
-
-    //define a function to do validation
-    function validate(newValue) {
-        target.hasError(newValue ? false : true);
-        target.validationMessage(newValue ? "" : overrideMessage || "This field is required");
-    }
-
-    //initial validation
-    validate(target());
-
-    //validate whenever the value changes
-    target.subscribe(validate);
-
-    //return the original observable
-    return target;
-};
-
-function BlogModel(data) {
+﻿function BlogModel(data) {
     var self = this;
 
-
-
-
     self.BlogId = ko.observable(data.BlogId);
-    self.Author = ko.observable(data.Author).extend({required: ""});
-    self.Title = ko.observable(data.Title).extend({ required: "" });
-    self.Description = ko.observable(data.Description).extend({ required: "" });
+    self.Author = ko.observable(data.Author);
+    self.Title = ko.observable(data.Title);
+    self.Description = ko.observable(data.Description);
     self.DateCreated = ko.observable(moment(data.DateCreated).format("L"));
+
     self.BlogFullName = ko.computed(function () {
         return self.Author() + ' ' + self.Title();
     });
@@ -75,8 +51,12 @@ function BlogViewModel() {
                 console.debug(xhr);
             },
             success: function (data) {
+                alert(data.message);
+
+                if (!data.success) {  
+                    window.location.href = '/BlogsKnockout/Index/';
+                }
                 self.Blogs.remove(blog);
-                window.location.href = '/BlogsKnockout/Index/';
             }
         });
     };
@@ -97,8 +77,13 @@ function BlogViewModel() {
                 console.debug(xhr);
             },
             success: function (data) {
+                alert(data.message);
+
+                if (!data.success) {
+                    window.location.href = '/BlogsKnockout/Index/';
+                }
+
                 self.Blogs.removeAll();
-                window.location.href = '/BlogsKnockout/Index/';
             }
         });
     };
@@ -119,7 +104,7 @@ function BlogViewModel() {
                     console.debug(xhr);
                 },
                 success: function (data) {
-                    alert(data.Message);
+                    alert(data.message);           
                     window.location.href = '/BlogsKnockout/Index/';
                 }
             });

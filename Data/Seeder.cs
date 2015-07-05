@@ -12,7 +12,7 @@ namespace Data
                             {
                                 new Blog
                                     {   
-                                        BlogDescription = "Welcome to my cool blog, here it is, thanks for coming",   
+                                        BlogDescription = "Welcome to my cool blog, here it is, thanks for coming, hope to see you again soon!",   
                                         Author = "Admin", 
                                         Title = "1st Blog Title",
                                         DateCreated = Convert.ToDateTime("06/05/2013")
@@ -20,14 +20,14 @@ namespace Data
                                 new Blog
                                     {
                                         BlogDescription = "This blog is all about COMPUTERS!!", 
-                                        Author = "Admin", 
+                                        Author = "Jack", 
                                         Title = "2nd Blog Title",
                                         DateCreated = Convert.ToDateTime("06/06/2013")
                                     },
                                 new Blog
                                     {
-                                        BlogDescription = "Another cool blog, you should check it out?", 
-                                        Author = "Admin", 
+                                        BlogDescription = "Another cool blog for you to read, you should check it out!", 
+                                        Author = "Jill", 
                                         Title = "3rd Blog Title",
                                         DateCreated = Convert.ToDateTime("06/07/2013")
                                     }

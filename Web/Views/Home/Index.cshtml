@@ -9,7 +9,7 @@
 <div class="jumbotron" style="text-align: center">
     <h2>@Html.Label("ECOT - Knockout Tutorial")</h2>
     <small>Click the link below to browse the source code:</small>
-   <p><mark><small><a href="https://github.com/NoFlaw/KnockoutTutorial">https://github.com/NoFlaw/KnockoutTutorial</a></small></mark></p> <br/>
+    <p><mark><small><a href="https://github.com/NoFlaw/KnockoutTutorial">https://github.com/NoFlaw/KnockoutTutorial</a></small></mark></p> <br />
 
     <small>Click the button below to Manage Blogs, such as creating/editing/viewing and deleting:</small>
     <p><a href="@Url.Content("~/Blogs")" class="btn btn-primary">Manage Blogs &raquo;</a></p>
@@ -21,7 +21,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="alert alert-warning alert-dismissible" role="alert">
-            <h3><strong>About Knockout JS:</strong></h3>
+            <h3><strong>About</strong></h3>
         </div>
         <p>
             <a href="http://knockoutjs.com/">Knockout.js</a> is a open source, standalone, JavaScript library that enables declarative bindings using an view model following
@@ -46,8 +46,42 @@
             <img src="~/Content/MVVM.png" alt="" />
         </div>
     </div>
-    <br /><br /><br />
-    <p><h4>The underlying principles:</h4></p>
+
+    <br /><br />
+
+    <p><h4><strong>MVVM with MVC and Knockout:</strong></h4></p>
+
+    <ul>
+        <li>
+            Model: same model as in MVC
+        </li>
+        <li>
+            View: same view as in MVC
+        </li>
+        <li>
+            View Model: client-side data and operations for UI
+        </li>
+    </ul>
+
+    <br /><br />
+
+    <p><h4><strong>Observables: </strong> <small>our viewModel is mainly made of these, which helps when attempting to do exchanges on the client-side</small></h4></p>
+
+    <ul>
+        <li>
+            Objects that can notify other objects of changes
+        </li>
+        <li>
+            They can be observerd by other objects that are dependent
+        </li>
+        <li>
+            <img src="~/Content/obervables.JPG" alt="" />
+        </li>
+    </ul>
+
+    <br /><br />
+
+    <p><h4><strong>Underlying Principles:</strong></h4></p>
     <ul>
         <li>
             Clear separation between domain data, view components and data to be displayed
@@ -70,7 +104,7 @@
 
     <div class="row">
         <div class="alert alert-warning alert-dismissible" role="alert">
-            <h3><strong>How It Works:</strong></h3>
+            <h3><strong>How It Works</strong></h3>
         </div>
         <div class="col-md-8">
             <img src="~/Content/knockout_HowItWorks.png" alt="" width="700" height="200" />
@@ -90,7 +124,7 @@
 
     <div class="row">
         <div class="alert alert-warning alert-dismissible" role="alert">
-            <h3><strong>Links to CheckOut:</strong></h3>
+            <h3><strong>Links</strong></h3>
         </div>
         <ul>
             <li>
@@ -104,6 +138,9 @@
             </li>
             <li>
                 <a href="http://knockoutjs.com/documentation/links.html">http://knockoutjs.com/documentation/links.html</a>
+            </li>
+            <li>
+                <a href="http://stackoverflow.com/questions/11055336/how-to-use-knockout-js-with-asp-net-mvc-viewmodels">http://stackoverflow.com/questions/11055336/how-to-use-knockout-js-with-asp-net-mvc-viewmodels</a>
             </li>
         </ul>
     </div>
