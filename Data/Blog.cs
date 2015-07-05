@@ -20,7 +20,7 @@ namespace Data
         
         public DateTime DateCreated { get; set; }
 
-        [MaxLength(10, ErrorMessage = "(10) Character Maximum, (5) Character Minimum"), MinLength(5)]
+        [MaxLength(10, ErrorMessage = "(10) Character Maximum, (5) Character Minimum"), MinLength(1)]
         public string Author { get; set; }
 
         [Required]
