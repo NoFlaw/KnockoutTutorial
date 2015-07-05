@@ -17,10 +17,9 @@ namespace Data
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy hh:mm:ss}", ApplyFormatInEditMode = true)]
         [DisplayName("Date Created")]
-        
         public DateTime DateCreated { get; set; }
 
-        [MaxLength(10, ErrorMessage = "(10) Character Maximum, (5) Character Minimum"), MinLength(1)]
+        [Required]
         public string Author { get; set; }
 
         [Required]
