@@ -2,10 +2,110 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>KnockoutTutorial</h1>
+<div class="jumbotron" style="-ms-background-size: 300px, 220px; background-size: 300px, 220px; background-image: url('../../Content/mainKnockoutImage.jpg')">
+    <p><br /><br /></p>
 </div>
 
-<div class="row">
-    
+<div class="jumbotron" style="text-align: center">
+    <h2>@Html.Label("ECOT - Knockout Tutorial")</h2>
+    <small>Click the link below to browse the source code:</small>
+   <p><mark><small><a href="https://github.com/NoFlaw/KnockoutTutorial">https://github.com/NoFlaw/KnockoutTutorial</a></small></mark></p> <br/>
+
+    <small>Click the button below to Manage Blogs, such as creating/editing/viewing and deleting:</small>
+    <p><a href="@Url.Content("~/Blogs")" class="btn btn-primary">Manage Blogs &raquo;</a></p>
+    <br />
+    <small>Click the button below to Manage Blogs with <a href="http://knockoutjs.com/">Knockout.js</a>, such as creating/editing/viewing and deleting:</small>
+    <p><a href="@Url.Content("~/BlogsKnockout")" class="btn btn-danger"> Manage Blogs KO &raquo;</a></p>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <h3><strong>About Knockout JS:</strong></h3>
+        </div>
+        <p>
+            <a href="http://knockoutjs.com/">Knockout.js</a> is a open source, standalone, JavaScript library that enables declarative bindings using an view model following
+            the <a href="https://msdn.microsoft.com/en-us/library/ee817669.aspx">Observer</a> and <a href="https://msdn.microsoft.com/en-us/library/hh848246.aspx">MVVM</a> pattern.
+            It enables the UI to project behavior similiar to auto-updating and/or refreshing without required user interaction, whenever data that has
+            been bound is modified. Knockout.js also provides its own templating pattern that helps you bind data quickly using a flattened view model.
+        </p>
+
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Observer</h4>
+            <img src="~/Content/observer.gif" alt="" />
+            <img src="~/Content/observer2.gif" alt="" />
+        </div>
+
+        <div class="col-md-6">
+            <h4>Model View View Model</h4>
+            <img src="~/Content/MVVM.png" alt="" />
+        </div>
+    </div>
+    <br /><br /><br />
+    <p><h4>The underlying principles:</h4></p>
+    <ul>
+        <li>
+            Clear separation between domain data, view components and data to be displayed
+        </li>
+        <li>
+            Presence of a clearly defined layer of specialized code to manage the relationships between the view components
+        </li>
+    </ul>
+
+    <br /><br /><br /><br /><br /><br />
+
+    <div class="row">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <h3><strong>Key Concepts</strong></h3>
+        </div>
+        <img src="~/Content/knockoutkeyConcepts.JPG" alt="Knockout.js Key Concepts" />
+    </div>
+
+    <br /><br /><br /><br /><br /><br />
+
+    <div class="row">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <h3><strong>How It Works:</strong></h3>
+        </div>
+        <div class="col-md-8">
+            <img src="~/Content/knockout_HowItWorks.png" alt="" width="700" height="200" />
+        </div>
+        <div class="col-md-4">
+            <img src="~/Content/knockout_two-way-db.png" alt="" width="400" height="300" />
+        </div>
+        <div class="col-md-8">
+            <img src="~/Content/knockout_Architecture.png" alt="" />
+        </div>
+        <div class="col-md-4">
+            <img src="~/Content/knockoutSnippet.png" alt="" width="400" height="300" />
+        </div>
+    </div>
+
+    <br /><br /><br /><br /><br /><br />
+
+    <div class="row">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <h3><strong>Links to CheckOut:</strong></h3>
+        </div>
+        <ul>
+            <li>
+                <a href="http://learn.knockoutjs.com/">http://learn.knockoutjs.com/</a>
+            </li>
+            <li>
+                <a href="https://www.airpair.com/knockout/posts/top-10-mistakes-knockoutjs">https://www.airpair.com/knockout/posts/top-10-mistakes-knockoutjs</a>
+            </li>
+            <li>
+                <a href="http://www.codeproject.com/Articles/696466/Complete-End-to-End-CRUD-Operations-Using-Knockout">http://www.codeproject.com/Articles/696466/Complete-End-to-End-CRUD-Operations-Using-Knockout</a>
+            </li>
+            <li>
+                <a href="http://knockoutjs.com/documentation/links.html">http://knockoutjs.com/documentation/links.html</a>
+            </li>
+        </ul>
+    </div>
+
 </div>

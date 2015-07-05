@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - KnockoutTutorial</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <meta name="description" content="Layout" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -16,7 +17,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Knockout Tutorial v1.0", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("KnockoutJS Tutorial v1.0", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -31,7 +32,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - By: Brenton Bates</p>
+            <p>&copy; @DateTime.Now.Year - Brenton E. A. Bates - <a href="mailto:brentonbates@gmail.com">brentonbates@gmail.com</a></p>
         </footer>
     </div>
 
@@ -41,5 +42,11 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/knockout")
     @RenderSection("scripts", required: false)
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css">
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.js"></script>
 </body>
 </html>

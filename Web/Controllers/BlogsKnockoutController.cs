@@ -17,7 +17,7 @@ namespace Web.Controllers
             return View();
         }
 
-        public JsonResult GetAllBlogs()
+        public ActionResult GetAllBlogs()
         {
             var blogs = _db.Blogs.ToList();
 
@@ -41,7 +41,7 @@ namespace Web.Controllers
 
             foreach (var blogViewModel in blogs)
             {
-                if (blogViewModel.BlogId > 0 && !string.IsNullOrEmpty(Convert.ToString(blogViewModel.BlogId)))
+                if (!string.IsNullOrEmpty(Convert.ToString(blogViewModel.BlogId)) && blogViewModel.BlogId > 0)
                 {
                     var foundBlog = _db.Blogs.Find(blogViewModel.BlogId);
 
@@ -69,7 +69,7 @@ namespace Web.Controllers
         }
 
         
-        public JsonResult RemoveBlog(int id)
+        public ActionResult RemoveBlog(int id)
         {
             if (id <= 0 || string.IsNullOrEmpty(Convert.ToString(id)))
                 return Json(new { Response = "Error", Message = "ErrorMessage: WHOA! That was unexpected?!?" }); 
@@ -80,7 +80,7 @@ namespace Web.Controllers
             return Json(new { Response = "Success", Message = "Removed blog!"}, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult RemoveAllBlogs(List<BlogViewModel> blogs)
+        public ActionResult RemoveAllBlogs(List<BlogViewModel> blogs)
         {
             if (!blogs.Any())
                 return Json(new {Response = "Success", Message = "No blogs to DELETE..."}, JsonRequestBehavior.AllowGet);
