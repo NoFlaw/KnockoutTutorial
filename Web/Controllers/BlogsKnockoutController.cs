@@ -9,7 +9,7 @@ namespace Web.Controllers
 {
     public class BlogsKnockoutController : Controller
     {
-        private readonly Entities _db = new Entities();
+        private readonly DatabaseContext _db = new DatabaseContext();
 
         // GET: BlogKnockout
         public ActionResult Index()

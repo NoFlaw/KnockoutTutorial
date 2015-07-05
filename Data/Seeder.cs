@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Data
 {
-    public class Seeder : DropCreateDatabaseAlways<Entities>
+    public class Seeder : DropCreateDatabaseAlways<DatabaseContext>
     {
-        protected override void Seed(Entities context)
+        protected override void Seed(DatabaseContext context)
         {
             var blogs = new List<Blog>
             {

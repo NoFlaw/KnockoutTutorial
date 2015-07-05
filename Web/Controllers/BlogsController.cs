@@ -9,7 +9,7 @@ namespace Web.Controllers
 {
     public class BlogsController : Controller
     {
-        private readonly Entities _db = new Entities();
+        private readonly DatabaseContext _db = new DatabaseContext();
 
         // GET: Blogs
         public ActionResult Index()

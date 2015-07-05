@@ -2,19 +2,19 @@ using System.Data.Entity;
 
 namespace Data
 {
-    public class Entities : DbContext
+    public class DatabaseContext : DbContext
     {
         public DbSet<Blog> Blogs { get; set; }
-        public DbSet<Post> Posts { get; set; } 
-        
-        public Entities() : base("name=Entities")
+        public DbSet<Post> Posts { get; set; }
+
+        public DatabaseContext(): base("name=DatabaseContext")
         {
             Configuration.LazyLoadingEnabled = true;
         }
 
-        static Entities()
+        static DatabaseContext()
         {
-            Database.SetInitializer<Entities>(new Seeder());
+            Database.SetInitializer<DatabaseContext>(new Seeder());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
