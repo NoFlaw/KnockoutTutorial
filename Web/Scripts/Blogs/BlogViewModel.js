@@ -7,6 +7,24 @@
     self.Description = ko.observable(data.Description);
     self.DateCreated = ko.observable(moment(data.DateCreated).format("L"));
 
+    self.inputChanged = function (blog) {
+        var blogToPost = ko.toJSON(blog);
+        $.ajax({
+            type: 'POST',
+            data: blogToPost,
+            url: '/BlogsKnockout/SaveBlog',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (d) {
+                alert(d.message);
+            },
+            error: function (xhr) {
+                alert('StatusCode: ' + xhr.status + ' ' + 'Error:' + xhr.responseText);
+                console.debug(xhr);
+            }
+        });
+    }
+
     self.BlogFullName = ko.computed(function () {
         return self.Author() + ' ' + self.Title();
     });
@@ -41,14 +59,15 @@ function BlogViewModel() {
     });
 
     self.AddBlog = function () {
-        self.Blogs.push({
+        
+        self.Blogs.push( new BlogModel({
             BlogId: 0,
             Author: "",
             Title: "",
             Description: "",
             DateCreated: new Date().toLocaleString(),
             BlogFullName: ""
-        });
+        }));
     };
 
     self.canSave = function() {

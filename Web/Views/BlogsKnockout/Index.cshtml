@@ -41,7 +41,7 @@
         <tr style="text-align: center;">
             <td>@Html.Label("BlogFullName") <p data-bind="text: BlogFullName, uniqueName: true"></p></td>
             <td>@Html.LabelFor(model => model.Author)<input data-val="true" data-val-required="Required" data-bind="value: Author, uniquename: true" /></td>
-            <td>@Html.LabelFor(model => model.Title) <input data-bind="value: Title, uniqueName: true" /></td>
+            <td>@Html.LabelFor(model => model.Title) <input data-bind="event: {change:inputChanged} , value: Title, uniqueName: true" /></td>
             <td>@Html.LabelFor(model => model.DateCreated) <input type="text" data-bind="date: DateCreated, dateFormat:'MM/DD/YYYY', uniqueName: true, enable: false, required: false" /></td>
             <td>@Html.LabelFor(model => model.Description) <textarea rows="5" cols="60" data-bind="value: Description, uniqueName: true"></textarea></td>
             <td style="padding: 10px"><br /><br /><br /><a href='' data-bind='click: SaveBlog'><strong>Save</strong></a></td>
@@ -53,7 +53,7 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             ko.applyBindings(new BlogViewModel());
 
