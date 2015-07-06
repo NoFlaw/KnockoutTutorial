@@ -96,5 +96,36 @@ namespace Web.Controllers
 
             return Json(new { success = true, message = "Removed all blogs!" }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult SaveBlog(BlogViewModel blog)
+        {
+            Blog realBlog;
+            realBlog = _db.Blogs.Find(blog.BlogId);
+
+            if (realBlog == null)
+            {
+                realBlog = new Blog()
+                {
+                    Author = blog.Author,
+                    BlogDescription = blog.Description,
+                    BlogId = blog.BlogId,
+                    DateCreated = blog.DateCreated,
+                    Title = blog.Title
+                };
+                _db.Blogs.Add(realBlog);
+            }
+            else
+            {
+                realBlog.Author = blog.Author;
+                realBlog.BlogDescription = blog.Description;
+                realBlog.BlogId = blog.BlogId;
+                realBlog.DateCreated = blog.DateCreated;
+                realBlog.Title = blog.Title;
+            }
+
+            _db.SaveChanges();
+
+            return Json(new { success = true, message = "Blog Saved" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

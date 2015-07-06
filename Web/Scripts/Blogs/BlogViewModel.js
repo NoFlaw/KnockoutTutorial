@@ -10,6 +10,24 @@
     self.BlogFullName = ko.computed(function () {
         return self.Author() + ' ' + self.Title();
     });
+
+    self.SaveBlog = function (blog) {
+        var blogToPost = ko.toJSON(blog);
+        $.ajax({
+            type: 'POST',
+            data: blogToPost,
+            url: '/BlogsKnockout/SaveBlog',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (d) {
+                alert(d.message);
+            },
+            error: function (xhr) {
+                alert('StatusCode: ' + xhr.status + ' ' + 'Error:' + xhr.responseText);
+                console.debug(xhr);
+            }
+        });
+    }
 }
 
 function BlogViewModel() {
@@ -33,6 +51,10 @@ function BlogViewModel() {
         });
     };
 
+    self.canSave = function() {
+        return self.Blogs().length > 0;
+    }
+
     self.RemoveBlog = function (blog) {
 
         if (blog.BlogId <= 0) {
@@ -53,7 +75,7 @@ function BlogViewModel() {
             success: function (data) {
                 alert(data.message);
 
-                if (!data.success) {  
+                if (!data.success) {
                     window.location.href = '/BlogsKnockout/Index/';
                 }
                 self.Blogs.remove(blog);
@@ -92,21 +114,21 @@ function BlogViewModel() {
 
         var blogsToBeUpdated = ko.toJSON(self.Blogs);
 
-            $.ajax({
-                type: "POST",
-                url: '/BlogsKnockout/AddOrUpdateBlogs',
-                dataType: "json",
-                contentType: 'application/json; charset=utf-8',
-                async: true,
-                data: blogsToBeUpdated,
-                error: function (xhr) {
-                    alert('StatusCode: ' + xhr.status + ' ' + 'Error:' + xhr.responseText);
-                    console.debug(xhr);
-                },
-                success: function (data) {
-                    alert(data.message);           
-                    window.location.href = '/BlogsKnockout/Index/';
-                }
-            });
+        $.ajax({
+            type: "POST",
+            url: '/BlogsKnockout/AddOrUpdateBlogs',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            data: blogsToBeUpdated,
+            error: function (xhr) {
+                alert('StatusCode: ' + xhr.status + ' ' + 'Error:' + xhr.responseText);
+                console.debug(xhr);
+            },
+            success: function (data) {
+                alert(data.message);
+                window.location.href = '/BlogsKnockout/Index/';
+            }
+        });
     };
 }
