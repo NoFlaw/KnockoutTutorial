@@ -1,0 +1,113 @@
+﻿@*http://knockoutmvc.com/Home/Documentation*@
+
+<h2>Index</h2>
+
+@using PerpetuumSoft.Knockout
+@model Web.Models.koMvc.BlogsEditorModel
+@{
+    var ko = Html.CreateKnockoutContext();
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (ko.Html.Form("SaveJson", "BlogsKnockoutMvcController", null, new { id = "blogsKoMvcForm" }))
+{
+    <div>
+        <table>
+            <tr>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date</th>
+            </tr>
+            <tbody>
+                @using (var blogs = ko.Foreach(m => m.Blogs))
+                {
+ 
+                    <tr>
+                        <td style="vertical-align: top">
+                            @blogs.Html.TextBox(m => m.Author)
+                            <div>@blogs.Html.HyperlinkButton("Delete", "DeleteBlog", "BlogsEditor", new { blogIndex = blogs.GetIndex() })</div>
+                        </td>
+                        <td style="vertical-align: top">
+                       @blogs.Html.TextBox(item => item.Title, new { @class = "required" }).UniqueName()
+                        </td>
+                        <td style="vertical-align: top">
+                            @blogs.Html.TextArea(m => m.Description)
+                        </td>
+
+                        <td style="vertical-align: top">
+                            @blogs.Html.TextBox(m => m.DateCreated)
+                        </td>
+                        @*<td>
+                                <table>
+                                    <tbody>
+                                        @using (var posts = blogs.Foreach(m => m.Posts))
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @posts.Html.TextBox(m => m.NickName)
+                                            </td>
+                                            <td>
+                                                @posts.Html.TextBox(m => m.CurrentPost)
+                                        </td>
+                                        <td>
+                                            @ko.Html.HyperlinkButton("Delete", "DeletePost", "BlogssEditor", new { blogIndex = blogs.GetIndex(), postIndex = posts.GetIndex() })
+                                    </td>
+                                </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                @ko.Html.HyperlinkButton("Add post", "AddPost", "BlogsEditor", new { postIndex = posts.GetIndex() })
+                            </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <p>
+        @ko.Html.Button("Add a blog", "AddBlog", "BlogsKnockoutMvc")
+        @ko.Html.Button("Save to JSON", "SaveJson", "BlogsKnockoutMvc").Enable(m => m.Blogs.Count > 0)
+    </p>
+
+}
+
+@ko.Html.TextArea(m => m.LastSavedJson, new { rows = 5, cols = 50 })
+
+@section scripts{
+    @*<script src="http://malsup.github.com/jquery.form.js"></script>*@ 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#blogsKoMvcForm").ajaxForm();
+        $("#blogsKoMvcForm").validate({ submitHandler: function () { @ko.ServerAction("SaveJson", "BlogsKnockoutMvc"); } });
+    });
+</script>
+}
+
+
+
+<style scoped="scoped">
+    input {
+        width: 120px;
+    }
+
+    textarea {
+        width: 500px;
+    }
+
+        input.error {
+        border: 1px solid red;
+        background-color: #FDC;
+    }
+
+    label.error {
+        display: block;
+        color: Red;
+        font-size: 0.8em;
+    }
+</style>
+
+@ko.Apply(Model)
+

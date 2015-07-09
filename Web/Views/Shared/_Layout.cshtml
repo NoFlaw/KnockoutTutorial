@@ -6,6 +6,12 @@
     <title>@ViewBag.Title - KnockoutTutorial</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/knockout")
+    @RenderSection("scripts", required: false)
     <meta name="description" content="Layout" />
 </head>
 <body>
@@ -17,13 +23,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("KnockoutJS Tutorial v1.0", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("KnockoutJS Tutorial v2.0", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Blogs", "Index", "Blogs")</li>
                     <li>@Html.ActionLink("Blogs KO", "Index", "BlogsKnockout")</li>
+                    <li>@Html.ActionLink("Blogs koMVC", "Index", "BlogsKnockoutMvc")</li>
                 </ul>
             </div>
         </div>
@@ -36,12 +43,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/moment")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/knockout")
-    @RenderSection("scripts", required: false)
+
     
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css">
